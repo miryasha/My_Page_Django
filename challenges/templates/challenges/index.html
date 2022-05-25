@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ month_name }}</title>
-</head>
-<body>
-    <h1>This {{ month_name | title }} challenge</h1>
-    <h2>====>>>{{ text }}</h2>
-</body>
-</html>
+{% extends "base.html" %}
+{% comment %} we need to make sure Django can find this template {% endcomment %}
+{% comment %} {% extends "../../../templates/base.html" %} {% endcomment %}
+
+{% comment %} or we could go to setting.py in our project subfolder agian
+and in Templates , Dir spesify it {% endcomment %}
+
+{% block page_title %}
+  All Challenges
+{% endblock %}
+
+
+{% block content %}
+   {% include  "./includes/header.html" %}
+    <ul>
+        {% for month in months %}
+            {% comment %} <li><a href="/challenges/{{ month }}">{{ month | title }}</a></li> {% endcomment %}
+            <li><a href="{% url 'month-challenge' month %}">{{ month | title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
