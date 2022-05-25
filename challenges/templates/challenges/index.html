@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+{% block css_files %}
+   <link rel="stylesheet" href="{% static "challenges/index.css" %}">
+   <link rel="stylesheet" href="{% static "challenges/includes/header.css" %}">
+{% endblock %}
+
 {% comment %} we need to make sure Django can find this template {% endcomment %}
 {% comment %} {% extends "../../../templates/base.html" %} {% endcomment %}
 

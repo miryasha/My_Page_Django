@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.http import Http404
+
 
 monthly_challenges = {
     "january": "january Eat no meat for the entire month!",
@@ -22,16 +24,6 @@ monthly_challenges = {
 def index(request):
     # list_items = ""
     months = list(monthly_challenges.keys())
-
-    # for month in months:
-    #     capitalized_month = month.capitalize()
-    #     month_path = reverse("month-challenge", args=[month])
-    #     list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
-
-    # # "<li><a href="...">January</a></li><li><a href="...">February</a></li>..."
-
-    # response_data = f"<ul>{list_items}</ul>"
-    # return HttpResponse(response_data)
     return render( request, "challenges/index.html", {
         "months": months
     })
@@ -58,4 +50,7 @@ def monthly_challenge(request, month):
         })
         # return HttpResponse(challenge_text)
     except:
-        return HttpResponseNotFound("<h1>This month is not supported!</h1>")
+        ## this automatically looks for 404 html templates
+        ## Rememeber for this we need to go to settting.py and set debug = false
+        ## right now we don't neet to set it to false unless we want to deploy our application
+        raise Http404()
